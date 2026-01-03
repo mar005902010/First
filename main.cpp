@@ -29,19 +29,23 @@ int main() {
                 if (auth.signup(db, username, password)) {
                     cout<<"Sign Up succesfully"<<endl;
                     job(db, username);
+                    sign = false;
                 }else {
                     cout<<"Sign Up failed"<<endl;
                 }
+
 
             }else if (choice == "2") {
                 cout<<"Enter username: ";cin>>username;
                 cout<<"Enter password: ";cin>>password;
                 if (auth.login(db, username, password)) {
                     cout<<"Log In successfully"<<endl;
-                    job(db, username);
+
+                    sign = false;
                 }else {
                     cout<<"Log In failed"<<endl;
                 }
+
 
             }else if (choice == "3") {
                 sign = false;
