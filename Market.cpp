@@ -23,5 +23,29 @@ bool Market::buy(Player& player, int i, double amount) {
         return false;
     }
     player.withdraw(cost);
-    player.addAsset
+    player.addAsset(assets[i].name, amount);
+    return true;
+}
+
+bool Market::sell(Player& player, int i, double amount) {
+    if (i<0 || i>=assets.size()) {
+        return false;
+    }
+    if (!player.hasAsset(assets[i].name, amount)) {
+        return false;
+    }
+    player.removeAsset(assets[i].name, amount);
+    player.deposit(amount * assets[i].price);
+    return true;
+}
+
+
+void Market::updatePrices() {
+    for (auto& a : assets) {
+        double change = ((rand()%2000-1000)/1000.0)*a.volatility;
+        a.price += change;
+        if (a.price < 1) {
+            a.price = 1;
+        }
+    }
 }
