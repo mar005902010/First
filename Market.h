@@ -22,8 +22,8 @@ private:
   Market();
 
   const vector<Asset>& getAssets() const;
-  bool buy(Player& player, double assetIndex, double amount);
-  bool sell(Player& player, double assetIndex, double amount);
+  bool buy(Player& player, int assetIndex, double amount);
+  bool sell(Player& player, int  assetIndex, double amount);
 
   void updatePrices();
 };

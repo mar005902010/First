@@ -17,6 +17,8 @@ add_executable(Game main.cpp
         Jobs.cpp
         Market.cpp
         Market.h
+        Terminal.cpp
+        Terminal.h
 )
 
 target_include_directories(Game PRIVATE
