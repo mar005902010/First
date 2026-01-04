@@ -14,7 +14,10 @@ add_executable(Game main.cpp
         Authentification.cpp
         Authentification.h
         Jobs.h
-        Jobs.cpp)
+        Jobs.cpp
+        Market.cpp
+        Market.h
+)
 
 target_include_directories(Game PRIVATE
         /usr/local/opt/mysql-connector-c++/include
