@@ -6,12 +6,14 @@
 #include "Database.h"
 #include "Player.h"
 #include "Authentification.h"
+#include  "Market.h"
 
 class Terminal {
 private:
     Database db;
     Authentification auth;
     Player* player = nullptr;
+    Market market;
     bool running = true;
 
     void showWelcome();
@@ -19,6 +21,8 @@ private:
     void gameLoop();
     void handleLogIn();
     void handleSignUp();
+    void handleMarket();
+
 public:
     void run();
 };

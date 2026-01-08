@@ -37,12 +37,12 @@ void Player::setJob(const std::string &newJob, double salary) {
 
 //Assets
 
-void Player::addAsset(const std::string& asset, int quantity) {
+void Player::addAsset(const std::string& asset, double quantity) {
     if (quantity<=0) {return;}
     assets[asset]+= quantity;
 }
 
-bool Player::hasAsset(const std::string& asset, int quantity) const{
+bool Player::hasAsset(const std::string& asset, double quantity) const{
     auto it = assets.find(asset);
     if (it==assets.end()) {
         return false;
@@ -50,7 +50,7 @@ bool Player::hasAsset(const std::string& asset, int quantity) const{
     return it->second >= quantity;
 }
 
-bool Player::removeAsset(const std::string& asset, int quantity) {
+bool Player::removeAsset(const std::string& asset, double quantity) {
     if (!hasAsset(asset, quantity)) {
         return false;
     }

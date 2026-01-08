@@ -22,13 +22,13 @@ bool Market::buy(Player& player, int i, double amount) {
     if (player.getBalance()<cost) {
         return false;
     }
-    player.withdraw(cost);
+
     player.addAsset(assets[i].name, amount);
     return true;
 }
 
 bool Market::sell(Player& player, int i, double amount) {
-    if (i<0 || i>=assets.size()) {
+    if (i<0 || i>=assets.size() || amount<=0) {
         return false;
     }
     if (!player.hasAsset(assets[i].name, amount)) {
@@ -43,7 +43,7 @@ bool Market::sell(Player& player, int i, double amount) {
 void Market::updatePrices() {
     for (auto& a : assets) {
         double change = ((rand()%2000-1000)/1000.0)*a.volatility;
-        a.price += change;
+        a.price += a.price * change ;
         if (a.price < 1) {
             a.price = 1;
         }

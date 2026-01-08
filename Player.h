@@ -22,9 +22,9 @@ class Player {
         void setJob(const std::string&  newJob, double salary);
 
         //Assets
-        void addAsset(const std::string&  asset, int quantity);
-        bool removeAsset(const std::string&  asset, int quantity);
-        bool hasAsset(const std::string&  asset, int quantity=1) const;
+        void addAsset(const std::string&  asset, double quantity);
+        bool removeAsset(const std::string&  asset, double quantity);
+        bool hasAsset(const std::string&  asset, double quantity=1) const;
 
 
         int getId() const;

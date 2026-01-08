@@ -67,6 +67,62 @@ void Terminal::showHelp() {
     cout << " exit     - Logout\n";
 }
 
+void Terminal::handleMarket() {
+    while (true) {
+        cout<<"\n====== MARKET ======\n";
+        cout<<"Balance: $"<<player->getBalance()<<"\n";
+
+        const auto& assets = market.getAssets();
+        for (size_t i = 0; i < assets.size(); ++i) {
+            cout<<i<<")"
+                << assets[i].name
+                <<"| Price: $"<<assets[i].price
+                <<"| Volatility: "<<assets[i].volatility
+                <<"\n";
+        }
+
+        cout<<"\n1) Buy\n";
+        cout<<"2) Sell\n";
+        cout<<"3) Update Prices\n";
+        cout<<"4) Back\n";
+        cout<<"Choose: ";
+
+        int choice;
+        cin>>choice;
+
+        if (choice == 1) {
+            int index;
+            double amount;
+            cout<<"Asset index: ";cin>>index;
+            cout<<"Amount: ";cin>>amount;
+
+            if (market.buy(*player, index, amount)) {
+                cout<<"Buy succeeded\n";
+            }else {
+                cout<<"Buy failed\n";
+            }
+        }else if (choice == 2) {
+            int index;
+            double amount;
+            cout<<"Asset index: ";cin>>index;
+            cout<<"Amount: ";cin>>amount;
+
+            if (market.sell(*player, index, amount)) {
+                cout<<"Sell succeeded\n";
+            }else {
+                cout<<"Sell failed\n";
+            }
+        }else if (choice == 3) {
+            market.updatePrices();
+            cout<<"Market Updated\n";
+        }else if (choice == 4) {
+            break;
+        }else {
+            cout<<"Unknown command\n";
+        }
+    }
+
+}
 
 void Terminal::gameLoop() {
     cin.ignore();
@@ -83,16 +139,17 @@ void Terminal::gameLoop() {
             delete player;
             player = nullptr;
             return;
-        }else if (cmd == "balance") {
-            cout<<"Balance: $"<<player->getBalance()<<"\n";
-        }else if (cmd == "job") {
-            cout<<"Current job: "<<player->getJob()<<"\n";
+        }else if (cmd=="balance") {
+            cout<<"Balance: "<<player->getBalance()<<"\n";
+        }else if (cmd=="job") {
+            cout<<"Job: "<<player->getJob()<<"\n";
             cout<<"Salary: $"<<player->getMonthlySalary()<<"\n";
-        }else if (cmd == "salary") {
-            player ->applyMonthlySalary();
-            cout<<"Salary received\n";
-        }else if (cmd == "help") {
-            showHelp();
+        }else if (cmd=="salary") {
+            player->applyMonthlySalary();
+            cout<<"Salary is recevied!!\n";
+            cout<<"Balance: $"<<player->getBalance()<<"\n";
+        }else if (cmd=="market") {
+            handleMarket();
         }
         else {
             cout<<"Unknown command\n";
