@@ -1,4 +1,5 @@
 #include "Terminal.h"
+#include "AssetRepository.h"
 #include <iostream>
 
 using namespace std;
@@ -97,7 +98,10 @@ void Terminal::handleMarket() {
             cout<<"Amount: ";cin>>amount;
 
             if (market.buy(*player, index, amount)) {
+                const auto& asset  = market.getAssets()[index];
                 cout<<"Buy succeeded\n";
+                AssetRepository::saveAsset(db, player->getId(),asset.name, amount);
+                AssetRepository::logTransaction(db, player->getId(),asset.name, amount,asset.price,"BUY");
             }else {
                 cout<<"Buy failed\n";
             }
@@ -108,7 +112,11 @@ void Terminal::handleMarket() {
             cout<<"Amount: ";cin>>amount;
 
             if (market.sell(*player, index, amount)) {
+                const auto& asset  = market.getAssets()[index];
                 cout<<"Sell succeeded\n";
+                AssetRepository::saveAsset(db, player->getId(),asset.name, amount);
+                AssetRepository::logTransaction(db, player->getId(),asset.name, amount,asset.price,"Sell");
+
             }else {
                 cout<<"Sell failed\n";
             }
@@ -150,6 +158,8 @@ void Terminal::gameLoop() {
             cout<<"Balance: $"<<player->getBalance()<<"\n";
         }else if (cmd=="market") {
             handleMarket();
+        }else if (cmd == "help") {
+            showHelp();
         }
         else {
             cout<<"Unknown command\n";

@@ -19,6 +19,8 @@ add_executable(Game main.cpp
         Market.h
         Terminal.cpp
         Terminal.h
+        AssetRepository.cpp
+        AssetRepository.h
 )
 
 target_include_directories(Game PRIVATE

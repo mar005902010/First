@@ -22,7 +22,7 @@ bool Market::buy(Player& player, int i, double amount) {
     if (player.getBalance()<cost) {
         return false;
     }
-
+    player.withdraw(cost);
     player.addAsset(assets[i].name, amount);
     return true;
 }
