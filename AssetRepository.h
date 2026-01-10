@@ -6,7 +6,6 @@ class AssetRepository {
 public:
     static void saveAsset(Database& db, int playerID, const std::string& asset, double quantity);
     static void logTransaction(Database& db, int playerID, const std::string& asset, double quantity, double price, const std::string& type);
-
 };
 
 

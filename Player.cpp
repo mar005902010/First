@@ -43,8 +43,10 @@ void Player::addAsset(const std::string& asset, double quantity) {
 }
 
 bool Player::hasAsset(const std::string& asset, double quantity) const{
+    if (quantity<=0) return false;
+
     auto it = assets.find(asset);
-    if (it==assets.end()) {
+    if (it ==assets.end()) {
         return false;
     }
     return it->second >= quantity;

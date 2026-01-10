@@ -102,6 +102,8 @@ void Terminal::handleMarket() {
                 cout<<"Buy succeeded\n";
                 AssetRepository::saveAsset(db, player->getId(),asset.name, amount);
                 AssetRepository::logTransaction(db, player->getId(),asset.name, amount,asset.price,"BUY");
+                auto users = db.getSchema().getTable("users");
+                users.update().set("balance", player->getBalance()).where("id = :id").bind("id", player->getId()).execute();
             }else {
                 cout<<"Buy failed\n";
             }
@@ -114,9 +116,10 @@ void Terminal::handleMarket() {
             if (market.sell(*player, index, amount)) {
                 const auto& asset  = market.getAssets()[index];
                 cout<<"Sell succeeded\n";
-                AssetRepository::saveAsset(db, player->getId(),asset.name, amount);
+                AssetRepository::saveAsset(db, player->getId(),asset.name, -amount);
                 AssetRepository::logTransaction(db, player->getId(),asset.name, amount,asset.price,"Sell");
-
+                auto users = db.getSchema().getTable("users");
+                users.update().set("balance", player->getBalance()).where("id = :id").bind("id", player->getId()).execute();
             }else {
                 cout<<"Sell failed\n";
             }

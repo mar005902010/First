@@ -31,9 +31,9 @@ bool Market::sell(Player& player, int i, double amount) {
     if (i<0 || i>=assets.size() || amount<=0) {
         return false;
     }
-    if (!player.hasAsset(assets[i].name, amount)) {
+    /*if (!player.hasAsset(assets[i].name)) {
         return false;
-    }
+    }*/
     player.removeAsset(assets[i].name, amount);
     player.deposit(amount * assets[i].price);
     return true;
